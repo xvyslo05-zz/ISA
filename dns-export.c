@@ -23,6 +23,10 @@ typedef struct args {
 
 args_t var;
 
+
+/*
+Prints help on stdout
+*/
 void PrintHelp() {
 	printf("[-h] - prints help on stdout. Only argument\n"
 			"[-r file.pcap] - chooses which file is going to be examinated\n"
@@ -31,6 +35,15 @@ void PrintHelp() {
 			"[-t time] - sets timelenght of the examination. Implicit value is 60s\n");
 	exit(0);
 }
+
+
+/*
+Checks input arguments
+
+@param int argc represents number of input arguments
+@param char argv represents parameters of input arguments
+@return a returns structure of input arguments
+*/
 
 args_t CheckArgs(int argc, char * argv[]) {
 
@@ -50,6 +63,13 @@ args_t CheckArgs(int argc, char * argv[]) {
 	return a;
 }
 
+/*
+Main switch
+
+@param int argc represents number of input arguments
+@param char argv represents parameters of input arguments
+@return -1, 0 or 1
+*/
 
 int main(int argc, char * argv[]) {
 
