@@ -27,6 +27,7 @@ args_t var;
 /*
 Prints help on stdout
 */
+
 void PrintHelp() {
 	printf("[-h] - prints help on stdout. Only argument\n"
 			"[-r file.pcap] - chooses which file is going to be examinated\n"
