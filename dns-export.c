@@ -54,6 +54,8 @@ args_t CheckArgs(int argc, char * argv[]) {
 	a.operation = 0;
 	a.countingTime = 60;
 
+	FILE * inputFile;
+
 	int opt;
 
 	if(argc == 1) {
@@ -64,11 +66,42 @@ args_t CheckArgs(int argc, char * argv[]) {
 		else
 			a.operation = 0;
 	} else if(argc > 2) {
-		while((opt = getopt(argc, argv, "rist")) != 1) {
+		while((opt = getopt(argc, argv, "r:i:s:t:")) != 1) {
 			switch(opt) {
 				case '?':
 					a.operation = 0;
 					return a;
+					break;
+				case 'r':
+					inputFile = fopen(optarg, "r");
+
+					if(inputFile == NULL) {
+						fprintf(stderr, "ERROR, .pcap file does not exist\n");
+						a.operation = 0;
+						return a;
+					}
+
+					fclose(inputFile);
+
+					a.inputFile = optarg;
+					break;
+
+				case 'i':
+					break;
+
+				case 's':
+					a.address = optarg;
+					break;
+
+				case 't':
+					a.countingTime = atoi(optarg);
+
+					if(a.countingTime < 0) {
+						a.operation = 0;
+						return a;
+						break;
+					}
+
 					break;
 			}
 		}
