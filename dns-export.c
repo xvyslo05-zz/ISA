@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <pcap.h>
+#include <unistd.h>
 
 
 /*
@@ -29,7 +30,7 @@ Prints help on stdout
 */
 
 void PrintHelp() {
-	printf("[-h] - prints help on stdout. Only argument\n"
+	printf("[-h] - prints help on stdout. Use as an only argument\n"
 			"[-r file.pcap] - chooses which file is going to be examinated\n"
 			"[-i interface] - chooses on which interface are we listening on\n"
 			"[-s address] - chooses hostname/IPv4/IPv6 adress of SYSLOG server\n"
@@ -53,13 +54,25 @@ args_t CheckArgs(int argc, char * argv[]) {
 	a.operation = 0;
 	a.countingTime = 60;
 
-	if(argc == 2) {
+	int opt;
+
+	if(argc == 1) {
+		a.operation = 0;
+	} else if(argc == 2) {
 		if(strcmp(argv[1], "-h") == 0)
 			a.operation = 1;
 		else
 			a.operation = 0;
+	} else if(argc > 2) {
+		while((opt = getopt(argc, argv, "rist")) != 1) {
+			switch(opt) {
+				case '?':
+					a.operation = 0;
+					return a;
+					break;
+			}
+		}
 	}
-
 
 	return a;
 }
