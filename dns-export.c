@@ -84,25 +84,30 @@ args_t CheckArgs(int argc, char * argv[]) {
 					fclose(inputFile);
 
 					a.inputFile = optarg;
+					a.operation = 2;
 					break;
 
 				case 'i':
+					a.interfaceType = optarg;
+					a.operation = 3;
 					break;
 
 				case 's':
 					a.address = optarg;
+					a.operation = 4;
 					break;
 
 				case 't':
 					a.countingTime = atoi(optarg);
 
-					if(a.countingTime < 0) {
+					if(a.countingTime <= 0) {
 						a.operation = 0;
 						return a;
 						break;
 					}
-
 					break;
+				default:
+					return a;
 			}
 		}
 	}
@@ -130,6 +135,15 @@ int main(int argc, char * argv[]) {
 		case 1:
 			PrintHelp();
 			return 0;
+			break;
+		case 2:
+			printf("%s\n", var.inputFile);
+			break;
+		case 3:
+			printf("%s\n", var.interfaceType);
+			break;
+		case 4:
+			printf("%s\n", var.address);
 			break;
 	}
 
