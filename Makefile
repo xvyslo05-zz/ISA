@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -pedantic -pthread
+CFLAGS = -Wall -Wextra -pedantic -pthread
 LIBS = -lpcap
 
 
