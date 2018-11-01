@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <pcap.h>
 #include <unistd.h>
+#include <syslog.h>
 
 #define SIZE_ETHERNET 14
 
@@ -121,7 +122,7 @@ args_t CheckArgs(int argc, char * argv[]) {
 void catched_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
 	static int count = 1;
 
-	if(count == 5)
+	if(count == 45)
 		return;
 
 	printf("%d\n", count);
