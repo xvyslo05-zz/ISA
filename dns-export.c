@@ -127,6 +127,8 @@ void catched_packet(u_char *args, const struct pcap_pkthdr *header, const u_char
 
 	printf("%d\n", count);
 
+	printf("%s\n", packet);
+
 	count++;
 
 }
@@ -141,7 +143,7 @@ int sniffOnInterface() {
 	struct bpf_program fp;
 	bpf_u_int32 mask;
 	bpf_u_int32 net;
-	const u_char *packet;
+	// const u_char *packet;
 	struct pcap_pkthdr header;
 
 	pcap_t *handle;
@@ -174,7 +176,6 @@ int sniffOnInterface() {
 		return(2);
 	}
 
-	packet = pcap_next(handle, &header); //tady musi byt LOOP
 
 	pcap_loop(handle, 30, catched_packet, NULL);
 
